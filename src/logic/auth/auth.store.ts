@@ -1,9 +1,9 @@
 import { create } from "zustand";
 import { StateCreator } from "zustand/vanilla";
-import { AuthState, AuthStore, User } from "./auth.types";
+import { AuthState, AuthStore } from "./auth.types";
+import { setAuthToken } from "./auth.service";
 
 const initialState: AuthState = {
-  user: null,
   token: null,
   isAuthenticated: false,
   isLoading: true,
@@ -13,15 +13,13 @@ export const useAuthStore = create<AuthStore>(
   (set: StateCreator<AuthStore>["set"]) => ({
     ...initialState,
 
-    login: (token: string, user: User) => {
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-      set({ token, user, isAuthenticated: true });
+    login: (token: string) => {
+      setAuthToken(token);
+      set({ token, isAuthenticated: true });
     },
 
     logout: () => {
       localStorage.removeItem("token");
-      localStorage.removeItem("user");
       set(initialState);
     },
 
@@ -31,12 +29,10 @@ export const useAuthStore = create<AuthStore>(
 
     initialize: () => {
       const token = localStorage.getItem("token");
-      const userStr = localStorage.getItem("user");
 
-      if (token && userStr) {
+      if (token) {
         try {
-          const user = JSON.parse(userStr) as User;
-          set({ token, user, isAuthenticated: true, isLoading: false });
+          set({ token, isAuthenticated: true, isLoading: false });
         } catch (error) {
           set({ ...initialState, isLoading: false });
         }

@@ -8,16 +8,27 @@ import { handleLogin } from "../logic/auth/auth.service";
 import { LoginPayload } from "../logic/auth/auth.types";
 import { ArrowRightIcon } from "../assets/icons/arrow-right";
 
+const AnimatedArrow = styled.div`
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+  height: 100%;
+  align-self: center;
+  &:hover {
+    transform: translateX(10px);
+  }
+`;
+
 const PageContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: ${({ theme }) => theme.colors.backgroundGradiant};
+  background: ${({ theme }) => theme.colors.appBackground};
 `;
 
 const FormContainer = styled.form`
-  background-color: ${({ theme }) => theme.colors.background};
+  background-color: ${({ theme }) => theme.colors.pageBackground};
   border: 1px solid ${({ theme }) => theme.colors.white};
   padding: 40px;
   width: 100%;
@@ -48,9 +59,15 @@ const FormFields = styled.div`
 
 const ErrorText = styled.span`
   color: ${({ theme }) => theme.colors.error};
-  font-size: ${({ theme }) => theme.typography.sizes.sm};
+  font-size: ${({ theme }) => theme.typography.variants.body2.fontSize};
   text-align: center;
   display: block;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 70px;
 `;
 
 export const SigninPage = () => {
@@ -66,7 +83,7 @@ export const SigninPage = () => {
   const onSubmit = async (data: LoginPayload) => {
     try {
       await handleLogin(data);
-      navigate("/products");
+      navigate("/attributes");
     } catch (error: any) {
       setError("root", {
         message: error.response?.data?.message || t("auth.signin.error"),
@@ -81,8 +98,8 @@ export const SigninPage = () => {
         <FormFields>
           <Input
             type="text"
-            error={errors.username?.message}
-            {...register("username", {
+            error={errors.userName?.message}
+            {...register("userName", {
               required: t("auth.signin.usernameRequired"),
             })}
             placeholder={t("auth.signin.username")}
@@ -101,20 +118,16 @@ export const SigninPage = () => {
           />
           {errors.root && <ErrorText>{errors.root.message}</ErrorText>}
         </FormFields>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: "70px",
-          }}
-        >
+        <ButtonContainer>
           <Button variant="outlined" onClick={() => navigate("/signup")}>
             {t("auth.signin.signUp")}
           </Button>
           <Button type="submit" isLoading={isSubmitting}>
-            <ArrowRightIcon />
+            <AnimatedArrow>
+              <ArrowRightIcon />
+            </AnimatedArrow>
           </Button>
-        </div>
+        </ButtonContainer>
       </FormContainer>
     </PageContainer>
   );

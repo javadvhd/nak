@@ -15,7 +15,7 @@ export const signupApi = async (
   payload: SignupPayload
 ): Promise<LoginResponse> => {
   const response = await axiosInstance.post<LoginResponse>(
-    "/auth/signup",
+    "/users/register",
     payload
   );
   return response.data;

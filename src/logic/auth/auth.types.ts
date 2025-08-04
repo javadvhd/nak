@@ -1,35 +1,37 @@
 export interface User {
   id: string;
-  // usermame: string;
-  name: string;
+  userName: string;
+  firstName: string;
+  lastName: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface LoginPayload {
-  username: string;
+  userName: string;
   password: string;
 }
 
 export interface SignupPayload extends LoginPayload {
-  name: string;
+  firstName: string;
+  lastName: string;
+}
+export interface SignupPagePayload extends SignupPayload {
   confirmPassword: string;
 }
 
 export interface LoginResponse {
-  token: string;
-  user: User;
+  access_token: string;
 }
 
 export interface AuthState {
-  user: User | null;
   token: string | null;
   isAuthenticated: boolean;
   isLoading: boolean;
 }
 
 export interface AuthStore extends AuthState {
-  login: (token: string, user: User) => void;
+  login: (token: string) => void;
   logout: () => void;
   setLoading: (status: boolean) => void;
   initialize: () => void;

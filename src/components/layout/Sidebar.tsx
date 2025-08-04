@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
-import { Typography } from "@mui/material";
-import { Inventory, Category, Logout } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
 import { useAuthStore } from "../../logic/auth/auth.store";
+import { ProductsIcon } from "../../assets/icons/products";
+import { AttributesIcon } from "../../assets/icons/attributes";
+import { LogoutIcon } from "../../assets/icons/logout";
 
 const SidebarContainer = styled.aside`
   width: 250px;
@@ -14,7 +15,7 @@ const SidebarContainer = styled.aside`
   flex-direction: column;
 `;
 
-const Logo = styled(Typography)`
+const Logo = styled.h1`
   padding: ${({ theme }) => theme.spacing.md} 0;
   text-align: center;
   border-bottom: 1px solid ${({ theme }) => theme.colors.background};
@@ -72,18 +73,18 @@ export const Sidebar = () => {
           onClick={() => navigate("/products")}
           active={pathname.startsWith("/products")}
         >
-          <Inventory />
+          <ProductsIcon />
           {t("products.title")}
         </NavItem>
         <NavItem
           onClick={() => navigate("/attributes")}
           active={pathname.startsWith("/attributes")}
         >
-          <Category />
+          <AttributesIcon />
           {t("attributes.title")}
         </NavItem>
         <LogoutButton onClick={handleLogout}>
-          <Logout />
+          <LogoutIcon />
           {t("auth.logout")}
         </LogoutButton>
       </NavList>

@@ -5,38 +5,40 @@ import styled from "@emotion/styled";
 import { Input } from "../components/common/Input";
 import { Button } from "../components/common/Button";
 import { handleSignup } from "../logic/auth/auth.service";
-import { SignupPayload } from "../logic/auth/auth.types";
+import { SignupPagePayload } from "../logic/auth/auth.types";
+import { ArrowRightIcon } from "../assets/icons/arrow-right";
 
 const PageContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: ${({ theme }) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.appBackground};
 `;
 
 const FormContainer = styled.form`
-  background-color: ${({ theme }) => theme.colors.white};
-  padding: ${({ theme }) => theme.spacing.xl};
-  border-radius: 8px;
+  background-color: ${({ theme }) => theme.colors.pageBackground};
+  padding: ${({ theme }) => theme.spacing.xxxl};
+  border-radius: 40px;
   width: 100%;
-  max-width: 400px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
 `;
 
 const FormTitle = styled.h1`
-  margin: 0;
-  margin-bottom: ${({ theme }) => theme.spacing.lg};
-  text-align: center;
+  text-align: left;
   color: ${({ theme }) => theme.colors.textPrimary};
-  font-size: ${({ theme }) => theme.typography.sizes.xl};
-  font-weight: 600;
+  font-size: ${({ theme }) => theme.typography.variants.biggestSize.fontSize};
+  font-weight: ${({ theme }) =>
+    theme.typography.variants.biggestSize.fontWeight};
+  line-height: ${({ theme }) =>
+    theme.typography.variants.biggestSize.lineHeight};
 `;
 
 const FormFields = styled.div`
+  margin-top: 70px;
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.md};
+  gap: ${({ theme }) => theme.spacing.lg};
 `;
 
 const SigninLink = styled.button`
@@ -62,6 +64,17 @@ const ErrorText = styled.span`
   display: block;
 `;
 
+const AnimatedArrow = styled.div`
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease;
+  height: 100%;
+  align-self: center;
+  &:hover {
+    transform: translateX(10px);
+  }
+`;
+
 export const SignupPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -71,13 +84,13 @@ export const SignupPage = () => {
     formState: { errors, isSubmitting },
     setError,
     watch,
-  } = useForm<SignupPayload>();
+  } = useForm<SignupPagePayload>();
 
   const password = watch("password");
 
-  const onSubmit = async (data: SignupPayload) => {
+  const onSubmit = async ({ confirmPassword, ...data }: SignupPagePayload) => {
     try {
-      await handleSignup(data);
+      await handleSignup({ ...data });
       navigate("/products");
     } catch (error: any) {
       setError("root", {
@@ -92,26 +105,28 @@ export const SignupPage = () => {
         <FormTitle>{t("auth.signup.title")}</FormTitle>
         <FormFields>
           <Input
-            label={t("auth.signup.name")}
-            error={errors.name?.message}
-            {...register("name", {
+            placeholder={t("auth.signup.name")}
+            error={errors.firstName?.message}
+            {...register("firstName", {
               required: t("auth.signup.nameRequired"),
             })}
           />
           <Input
-            label={t("auth.signup.email")}
-            type="email"
-            error={errors.email?.message}
-            {...register("email", {
-              required: t("auth.signup.emailRequired"),
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: t("auth.signup.emailInvalid"),
-              },
+            placeholder={t("auth.signup.lastName")}
+            error={errors.lastName?.message}
+            {...register("lastName", {
+              required: t("auth.signup.lastNameRequired"),
             })}
           />
           <Input
-            label={t("auth.signup.password")}
+            placeholder={t("auth.signup.username")}
+            error={errors.userName?.message}
+            {...register("userName", {
+              required: t("auth.signup.usernameRequired"),
+            })}
+          />
+          <Input
+            placeholder={t("auth.signup.password")}
             type="password"
             error={errors.password?.message}
             {...register("password", {
@@ -123,7 +138,7 @@ export const SignupPage = () => {
             })}
           />
           <Input
-            label={t("auth.signup.confirmPassword")}
+            placeholder={t("auth.signup.confirmPassword")}
             type="password"
             error={errors.confirmPassword?.message}
             {...register("confirmPassword", {
@@ -133,13 +148,24 @@ export const SignupPage = () => {
             })}
           />
           {errors.root && <ErrorText>{errors.root.message}</ErrorText>}
-          <Button type="submit" isLoading={isSubmitting} fullWidth>
-            {t("auth.signup.submit")}
-          </Button>
         </FormFields>
-        <SigninLink onClick={() => navigate("/signin")}>
-          {t("auth.signup.haveAccount")} {t("auth.signup.signIn")}
-        </SigninLink>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: "70px",
+          }}
+        >
+          <Button variant="outlined" onClick={() => navigate("/signin")}>
+            {t("auth.signup.signIn")}
+          </Button>
+          <Button type="submit" isLoading={isSubmitting}>
+            <AnimatedArrow>
+              <ArrowRightIcon />
+            </AnimatedArrow>
+          </Button>
+        </div>
       </FormContainer>
     </PageContainer>
   );

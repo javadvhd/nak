@@ -7,12 +7,8 @@ import {
   UpdateAttributePayload,
 } from "./attribute.types";
 
-export const getAttributesApi = async (
-  filters?: AttributeFilters
-): Promise<AttributesResponse> => {
-  const response = await axiosInstance.get<AttributesResponse>("/attributes", {
-    params: filters,
-  });
+export const getAttributesApi = async (): Promise<AttributesResponse> => {
+  const response = await axiosInstance.get<AttributesResponse>("/attributes");
   return response.data;
 };
 

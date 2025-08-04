@@ -13,11 +13,9 @@ import {
   UpdateAttributePayload,
 } from "./attribute.types";
 
-export const getAttributes = async (
-  filters?: AttributeFilters
-): Promise<AttributesResponse> => {
+export const getAttributes = async (): Promise<AttributesResponse> => {
   try {
-    return await getAttributesApi(filters);
+    return await getAttributesApi();
   } catch (error) {
     throw error;
   }

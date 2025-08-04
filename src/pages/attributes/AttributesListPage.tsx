@@ -17,31 +17,19 @@ import {
 } from "@mui/material";
 import { Add, Delete, Edit } from "@mui/icons-material";
 import { Button } from "../../components/common/Button";
-import { Input } from "../../components/common/Input";
-import { Select } from "../../components/common/Select";
 import { Spinner } from "../../components/common/Spinner";
 import { ConfirmationModal } from "../../components/common/ConfirmationModal";
 import {
   deleteAttribute,
   getAttributes,
 } from "../../logic/attribute/attribute.service";
-import {
-  Attribute,
-  AttributeFilters,
-  AttributeType,
-} from "../../logic/attribute/attribute.types";
+import { Attribute } from "../../logic/attribute/attribute.types";
 
 const PageHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: ${({ theme }) => theme.spacing.lg};
-`;
-
-const FiltersContainer = styled.div`
-  display: flex;
-  gap: ${({ theme }) => theme.spacing.md};
-  margin-bottom: ${({ theme }) => theme.spacing.md};
 `;
 
 const TableActions = styled.div`
@@ -55,24 +43,12 @@ const AttributeValues = styled.div`
   gap: ${({ theme }) => theme.spacing.xs};
 `;
 
-const attributeTypeOptions = [
-  { value: "text", label: "Text" },
-  { value: "number", label: "Number" },
-  { value: "select", label: "Select" },
-  { value: "boolean", label: "Boolean" },
-];
-
 export const AttributesListPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [attributes, setAttributes] = useState<Attribute[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [filters, setFilters] = useState<AttributeFilters>({
-    page: 1,
-    limit: 10,
-    sortBy: "createdAt",
-    sortOrder: "desc",
-  });
+  const [loading, setLoading] = useState(false);
+
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [selectedAttribute, setSelectedAttribute] = useState<Attribute | null>(
     null
@@ -82,7 +58,7 @@ export const AttributesListPage = () => {
   const fetchAttributes = async () => {
     try {
       setLoading(true);
-      const response = await getAttributes(filters);
+      const response = await getAttributes();
       setAttributes(response.data);
     } catch (error) {
       // Handle error
@@ -92,33 +68,8 @@ export const AttributesListPage = () => {
   };
 
   useEffect(() => {
-    fetchAttributes();
-  }, [filters]);
-
-  const handleSort = (field: NonNullable<AttributeFilters["sortBy"]>) => {
-    setFilters((prev) => ({
-      ...prev,
-      sortBy: field,
-      sortOrder:
-        prev.sortBy === field && prev.sortOrder === "asc" ? "desc" : "asc",
-    }));
-  };
-
-  const handleSearch = (value: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      search: value,
-      page: 1,
-    }));
-  };
-
-  const handleTypeFilter = (value: AttributeType | "") => {
-    setFilters((prev) => ({
-      ...prev,
-      type: value || undefined,
-      page: 1,
-    }));
-  };
+    // fetchAttributes();
+  }, []);
 
   const handleDelete = async () => {
     if (!selectedAttribute) return;
@@ -150,30 +101,11 @@ export const AttributesListPage = () => {
         </Button>
       </PageHeader>
 
-      <FiltersContainer>
-        <Input
-          placeholder={t("common.search")}
-          value={filters.search}
-          onChange={(e) => handleSearch(e.target.value)}
-        />
-        <Select
-          placeholder={t("attributes.filterByType")}
-          value={filters.type || ""}
-          onChange={(e) =>
-            handleTypeFilter(e.target.value as AttributeType | "")
-          }
-          options={[
-            { value: "", label: t("attributes.allTypes") },
-            ...attributeTypeOptions,
-          ]}
-        />
-      </FiltersContainer>
-
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>
+              {/* <TableCell>
                 <TableSortLabel
                   active={filters.sortBy === "name"}
                   direction={filters.sortOrder}
@@ -191,7 +123,7 @@ export const AttributesListPage = () => {
                   {t("attributes.type")}
                 </TableSortLabel>
               </TableCell>
-              <TableCell>{t("attributes.values")}</TableCell>
+              <TableCell>{t("attributes.values")}</TableCell> */}
               <TableCell align="right">{t("common.actions")}</TableCell>
             </TableRow>
           </TableHead>

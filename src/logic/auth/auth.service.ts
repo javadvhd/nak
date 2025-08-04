@@ -6,7 +6,8 @@ export const handleLogin = async (payload: LoginPayload) => {
   try {
     useAuthStore.getState().setLoading(true);
     const response = await loginApi(payload);
-    useAuthStore.getState().login(response.token, response.user);
+    console.log("response ", response);
+    useAuthStore.getState().login(response.access_token);
     return response;
   } catch (error) {
     throw error;
@@ -17,13 +18,23 @@ export const handleLogin = async (payload: LoginPayload) => {
 
 export const handleSignup = async (payload: SignupPayload) => {
   try {
+    console.log("signup payload ", payload);
     useAuthStore.getState().setLoading(true);
     const response = await signupApi(payload);
-    useAuthStore.getState().login(response.token, response.user);
+    console.log("signup response ", response);
+    useAuthStore.getState().login(response.access_token);
     return response;
   } catch (error) {
     throw error;
   } finally {
     useAuthStore.getState().setLoading(false);
   }
+};
+
+export const getAuthToken = async () => {
+  return localStorage.getItem("token");
+};
+
+export const setAuthToken = async (token: string) => {
+  localStorage.setItem("token", token);
 };

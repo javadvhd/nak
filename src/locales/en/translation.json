@@ -1,0 +1,67 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "submit": "Submit",
+    "back": "Back"
+  },
+  "auth": {
+    "signin": {
+      "title": "Sign In",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign Up",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 8 characters"
+    },
+    "signup": {
+      "title": "Sign Up",
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Sign Up",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign In",
+      "nameRequired": "Name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 8 characters",
+      "passwordMismatch": "Passwords do not match"
+    }
+  },
+  "products": {
+    "title": "Products",
+    "create": "Create Product",
+    "edit": "Edit Product",
+    "name": "Name",
+    "description": "Description",
+    "price": "Price",
+    "stock": "Stock",
+    "attributes": "Attributes",
+    "nameRequired": "Product name is required",
+    "priceRequired": "Price is required",
+    "stockRequired": "Stock is required"
+  },
+  "attributes": {
+    "title": "Attributes",
+    "create": "Create Attribute",
+    "edit": "Edit Attribute",
+    "name": "Name",
+    "type": "Type",
+    "values": "Values",
+    "nameRequired": "Attribute name is required",
+    "typeRequired": "Attribute type is required",
+    "valuesRequired": "At least one value is required"
+  }
+}

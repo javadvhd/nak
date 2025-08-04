@@ -1,0 +1,67 @@
+{
+  "common": {
+    "loading": "در حال بارگذاری...",
+    "error": "خطایی رخ داده است",
+    "save": "ذخیره",
+    "cancel": "انصراف",
+    "delete": "حذف",
+    "edit": "ویرایش",
+    "create": "ایجاد",
+    "submit": "ثبت",
+    "back": "بازگشت"
+  },
+  "auth": {
+    "signin": {
+      "title": "ورود",
+      "email": "ایمیل",
+      "password": "رمز عبور",
+      "submit": "ورود",
+      "noAccount": "حساب کاربری ندارید؟",
+      "signUp": "ثبت نام",
+      "emailRequired": "ایمیل الزامی است",
+      "emailInvalid": "لطفا یک ایمیل معتبر وارد کنید",
+      "passwordRequired": "رمز عبور الزامی است",
+      "passwordMinLength": "رمز عبور باید حداقل ۸ کاراکتر باشد"
+    },
+    "signup": {
+      "title": "ثبت نام",
+      "name": "نام",
+      "email": "ایمیل",
+      "password": "رمز عبور",
+      "confirmPassword": "تایید رمز عبور",
+      "submit": "ثبت نام",
+      "haveAccount": "حساب کاربری دارید؟",
+      "signIn": "ورود",
+      "nameRequired": "نام الزامی است",
+      "emailRequired": "ایمیل الزامی است",
+      "emailInvalid": "لطفا یک ایمیل معتبر وارد کنید",
+      "passwordRequired": "رمز عبور الزامی است",
+      "passwordMinLength": "رمز عبور باید حداقل ۸ کاراکتر باشد",
+      "passwordMismatch": "رمز عبور و تایید آن مطابقت ندارند"
+    }
+  },
+  "products": {
+    "title": "محصولات",
+    "create": "ایجاد محصول",
+    "edit": "ویرایش محصول",
+    "name": "نام",
+    "description": "توضیحات",
+    "price": "قیمت",
+    "stock": "موجودی",
+    "attributes": "ویژگی‌ها",
+    "nameRequired": "نام محصول الزامی است",
+    "priceRequired": "قیمت الزامی است",
+    "stockRequired": "موجودی الزامی است"
+  },
+  "attributes": {
+    "title": "ویژگی‌ها",
+    "create": "ایجاد ویژگی",
+    "edit": "ویرایش ویژگی",
+    "name": "نام",
+    "type": "نوع",
+    "values": "مقادیر",
+    "nameRequired": "نام ویژگی الزامی است",
+    "typeRequired": "نوع ویژگی الزامی است",
+    "valuesRequired": "حداقل یک مقدار الزامی است"
+  }
+}

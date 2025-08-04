@@ -13,13 +13,11 @@
   "auth": {
     "signin": {
       "title": "Sign In",
-      "email": "Email",
+      "username": "Username",
       "password": "Password",
-      "submit": "Sign In",
-      "noAccount": "Don't have an account?",
       "signUp": "Sign Up",
-      "emailRequired": "Email is required",
-      "emailInvalid": "Please enter a valid email",
+      "usernameRequired": "Username is required",
+      "usernameInvalid": "Please enter a valid username",
       "passwordRequired": "Password is required",
       "passwordMinLength": "Password must be at least 8 characters"
     },

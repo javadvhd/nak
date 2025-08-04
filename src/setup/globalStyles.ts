@@ -12,9 +12,8 @@ export const globalStyles = css`
   body {
     height: 100%;
     font-family: ${theme.typography.family};
-    font-size: ${theme.typography.sizes.md};
     color: ${theme.colors.textPrimary};
-    background-color: ${theme.colors.background};
+    background: ${theme.colors.backgroundGradiant};
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

@@ -23,25 +23,23 @@ const Label = styled.label`
 `;
 
 const StyledInput = styled.input<{ hasError?: boolean }>`
-  padding: ${({ theme }) => theme.spacing.sm};
-  border-radius: 4px;
-  font-size: ${({ theme }) => theme.typography.sizes.md};
-  font-family: ${({ theme }) => theme.typography.family};
-  border: 1px solid
-    ${({ theme, hasError }) =>
-      hasError ? theme.colors.error : theme.colors.textSecondary};
+  padding: ${({ theme }) => theme.spacing.xxxl};
+  border-radius: 40px;
+  font-size: ${({ theme }) => theme.typography.variants.mediumSize.fontSize};
   outline: none;
+  border: none;
   transition: all 0.2s ease-in-out;
   width: 100%;
   box-sizing: border-box;
-  background-color: ${({ theme }) => theme.colors.white};
-
+  background-color: ${({ theme }) => theme.colors.inputBackground};
+  height: 70px;
   &:focus {
     border-color: ${({ theme, hasError }) =>
-      hasError ? theme.colors.error : theme.colors.primary};
-    box-shadow: 0 0 0 2px
-      ${({ theme, hasError }) =>
-        hasError ? `${theme.colors.error}33` : `${theme.colors.primary}33`};
+      hasError ? theme.colors.error : "none"};
+  }
+
+  ::placeholder {
+    color: ${({ theme }) => theme.colors.placeholder};
   }
 
   &:disabled {

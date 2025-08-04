@@ -3,10 +3,11 @@ import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary";
+  variant?: "contained" | "outlined" | "text";
   isLoading?: boolean;
   size?: "small" | "medium" | "large";
   fullWidth?: boolean;
+  color?: "black" | "transparent" | "error";
 }
 
 const spin = keyframes`
@@ -33,7 +34,7 @@ const StyledButton = styled.button<ButtonProps>`
       case "small":
         return `${theme.spacing.xs} ${theme.spacing.sm}`;
       case "large":
-        return `${theme.spacing.md} ${theme.spacing.lg}`;
+        return `0px ${theme.spacing.lg}`;
       default:
         return `${theme.spacing.sm} ${theme.spacing.md}`;
     }
@@ -49,7 +50,7 @@ const StyledButton = styled.button<ButtonProps>`
     }
   }};
   font-weight: 500;
-  border-radius: 4px;
+  border-radius: 10000px;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -57,28 +58,41 @@ const StyledButton = styled.button<ButtonProps>`
   min-width: 120px;
   position: relative;
 
-  ${({ variant = "primary", theme }) => {
+  ${({ variant = "contained", theme }) => {
     switch (variant) {
-      case "primary":
+      case "contained":
         return `
-          background-color: ${theme.colors.primary};
+          background-color: ${theme.colors.black};
           color: ${theme.colors.white};
           &:hover:not(:disabled) {
-            background-color: ${theme.colors.primary}dd;
+            background-color: ${theme.colors.black}dd;
           }
           &:active:not(:disabled) {
-            background-color: ${theme.colors.primary}bb;
+            background-color: ${theme.colors.black}bb;
           }
         `;
-      case "secondary":
+      case "outlined":
         return `
-          background-color: ${theme.colors.secondary};
-          color: ${theme.colors.white};
+          border: 1px solid ${theme.colors.black};
+          background-color: transparent;
+          color: ${theme.colors.black};
           &:hover:not(:disabled) {
-            background-color: ${theme.colors.secondary}dd;
+            background-color: transparent;
           }
           &:active:not(:disabled) {
-            background-color: ${theme.colors.secondary}bb;
+            background-color: transparent;
+          }
+        `;
+      case "text":
+        return `
+        border: none;  
+        background-color: transparent;
+          color: ${theme.colors.black};
+          &:hover:not(:disabled) {
+            background-color: transparent;
+          }
+          &:active:not(:disabled) {
+            background-color: transparent;
           }
         `;
       default:

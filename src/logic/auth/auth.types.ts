@@ -1,13 +1,13 @@
 export interface User {
   id: string;
-  email: string;
+  // usermame: string;
   name: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface LoginPayload {
-  email: string;
+  username: string;
   password: string;
 }
 

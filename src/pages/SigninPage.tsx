@@ -6,53 +6,44 @@ import { Input } from "../components/common/Input";
 import { Button } from "../components/common/Button";
 import { handleLogin } from "../logic/auth/auth.service";
 import { LoginPayload } from "../logic/auth/auth.types";
+import { ArrowRightIcon } from "../assets/icons/arrow-right";
 
 const PageContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: ${({ theme }) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.backgroundGradiant};
 `;
 
 const FormContainer = styled.form`
-  background-color: ${({ theme }) => theme.colors.white};
-  padding: ${({ theme }) => theme.spacing.xl};
-  border-radius: 8px;
+  background-color: ${({ theme }) => theme.colors.background};
+  border: 1px solid ${({ theme }) => theme.colors.white};
+  padding: 40px;
   width: 100%;
-  max-width: 400px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  border: 1px solid ${({ theme }) => theme.colors.white};
+  border-radius: 40px;
 `;
 
 const FormTitle = styled.h1`
   margin: 0;
   margin-bottom: ${({ theme }) => theme.spacing.lg};
   text-align: center;
-  color: ${({ theme }) => theme.colors.textPrimary};
-  font-size: ${({ theme }) => theme.typography.sizes.xl};
-  font-weight: 600;
+  color: ${({ theme }) => theme.colors.black};
+  font-size: ${({ theme }) => theme.typography.variants.biggestSize.fontSize};
+  font-weight: ${({ theme }) =>
+    theme.typography.variants.biggestSize.fontWeight};
+  line-height: ${({ theme }) =>
+    theme.typography.variants.biggestSize.lineHeight};
+  text-align: left;
 `;
 
 const FormFields = styled.div`
+  margin-top: 70px;
   display: flex;
   flex-direction: column;
   gap: ${({ theme }) => theme.spacing.md};
-`;
-
-const SignupLink = styled.button`
-  margin-top: ${({ theme }) => theme.spacing.md};
-  text-align: center;
-  color: ${({ theme }) => theme.colors.primary};
-  cursor: pointer;
-  background: none;
-  border: none;
-  width: 100%;
-  font-size: ${({ theme }) => theme.typography.sizes.md};
-  font-family: ${({ theme }) => theme.typography.family};
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 const ErrorText = styled.span`
@@ -89,19 +80,14 @@ export const SigninPage = () => {
         <FormTitle>{t("auth.signin.title")}</FormTitle>
         <FormFields>
           <Input
-            label={t("auth.signin.email")}
-            type="email"
-            error={errors.email?.message}
-            {...register("email", {
-              required: t("auth.signin.emailRequired"),
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: t("auth.signin.emailInvalid"),
-              },
+            type="text"
+            error={errors.username?.message}
+            {...register("username", {
+              required: t("auth.signin.usernameRequired"),
             })}
+            placeholder={t("auth.signin.username")}
           />
           <Input
-            label={t("auth.signin.password")}
             type="password"
             error={errors.password?.message}
             {...register("password", {
@@ -111,15 +97,24 @@ export const SigninPage = () => {
                 message: t("auth.signin.passwordMinLength"),
               },
             })}
+            placeholder={t("auth.signin.password")}
           />
           {errors.root && <ErrorText>{errors.root.message}</ErrorText>}
-          <Button type="submit" isLoading={isSubmitting} fullWidth>
-            {t("auth.signin.submit")}
-          </Button>
         </FormFields>
-        <SignupLink onClick={() => navigate("/signup")}>
-          {t("auth.signin.noAccount")} {t("auth.signin.signUp")}
-        </SignupLink>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: "70px",
+          }}
+        >
+          <Button variant="outlined" onClick={() => navigate("/signup")}>
+            {t("auth.signin.signUp")}
+          </Button>
+          <Button type="submit" isLoading={isSubmitting}>
+            <ArrowRightIcon />
+          </Button>
+        </div>
       </FormContainer>
     </PageContainer>
   );
